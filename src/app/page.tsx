@@ -71,7 +71,7 @@ function useInView() {
   return [ref, visible] as const;
 }
 
-function FadeIn(props) {
+function FadeIn(props: { children: React.ReactNode; delay?: number }) {
   const [ref, visible] = useInView();
   var d = props.delay || 0;
   return (
@@ -88,7 +88,7 @@ function FadeIn(props) {
   );
 }
 
-function GoldLine(props) {
+function GoldLine(props: { width?: string }) {
   return (
     <div
       style={{
@@ -101,7 +101,7 @@ function GoldLine(props) {
   );
 }
 
-function SectionTitle(props) {
+function SectionTitle(props: { children: React.ReactNode; sub?: string }) {
   return (
     <div style={{ marginBottom: "48px" }}>
       <h2
@@ -167,7 +167,7 @@ function TikTokIcon() {
   );
 }
 
-function SNSBar(props) {
+function SNSBar(props: { size?: string }) {
   var s = props.size === "lg" ? 48 : 40;
   var items = [
     { icon: <XIcon />, url: "https://x.com/ryo_ma_official", label: "X" },
@@ -215,7 +215,7 @@ function SNSBar(props) {
   );
 }
 
-function Header(props) {
+function Header(props: { onNav: (id: string) => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -378,7 +378,7 @@ function Header(props) {
   );
 }
 
-function Hero(props) {
+function Hero(props: { onNav: (id: string) => void }) {
   const [loaded, setLoaded] = useState(false);
   useEffect(function () {
     var t = setTimeout(function () {
@@ -389,7 +389,7 @@ function Hero(props) {
     };
   }, []);
 
-  function makeStyle(delayVal) {
+  function makeStyle(delayVal: number) {
     return {
       opacity: loaded ? 1 : 0,
       transform: loaded ? "translateY(0)" : "translateY(24px)",
@@ -554,7 +554,7 @@ function Hero(props) {
   );
 }
 
-function Profile(props) {
+function Profile(props: { showDetail: boolean; setShowDetail: (v: boolean) => void }) {
   var showDetail = props.showDetail;
   var setShowDetail = props.setShowDetail;
 
@@ -1159,7 +1159,7 @@ function Contact() {
   ];
 
   function validate() {
-    var e = {};
+    var e: Record<string, string> = {};
     if (!form.name.trim()) e.name = "お名前を入力してください";
     if (!form.email.trim()) e.email = "メールアドレスを入力してください";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "正しいメールアドレスを入力してください";
@@ -1168,7 +1168,7 @@ function Contact() {
     return Object.keys(e).length === 0;
   }
 
-  var inputStyle = {
+  var inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "14px 16px",
     background: COLORS.surface,
@@ -1453,7 +1453,7 @@ function Footer() {
 export default function Home() {
   const [showDetail, setShowDetail] = useState(false);
 
-  function scrollTo(id) {
+  function scrollTo(id: string) {
     var el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
